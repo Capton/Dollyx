@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.capton.dollyx.Homepage"
+    tools:showIn="@layout/app_bar_homepage">
+
+
+    <ViewFlipper
+        android:id="@+id/main_image_flipper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/frame_0"
+        android:scaleType="centerInside"
+        android:layout_above="@+id/toggle_btn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+    </ViewFlipper>
+
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_msg"
+            android:id="@+id/toggle_btn"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:singleLine="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textOff="@string/text_off"
+            android:textOn="@string/text_on"/>
+
+        <com.capton.dollyx.ProportionalImageView
+            android:id="@+id/mainpage_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/welcome_3"
+            android:scaleType="centerInside"
+            android:layout_below="@+id/toggle_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/swipe_left"
+        android:src="@android:drawable/ic_media_previous"
+        android:layout_above="@+id/mainpage_img"
+        android:layout_toLeftOf="@+id/toggle_btn"
+        android:layout_toStartOf="@+id/toggle_btn" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/swipe_right"
+        android:src="@android:drawable/ic_media_next"
+        android:layout_toEndOf="@+id/toggle_btn"
+        android:layout_alignTop="@+id/swipe_left"
+        android:layout_toRightOf="@+id/toggle_btn" />
+
+</RelativeLayout>
