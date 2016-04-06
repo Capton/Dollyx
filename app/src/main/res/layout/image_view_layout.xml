@@ -24,5 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         style="@style/ImageTitle"
-        android:id="@+id/image_selected_title"/>
+        android:id="@+id/image_selected_title"
+        android:visibility="invisible"/>
 </RelativeLayout>

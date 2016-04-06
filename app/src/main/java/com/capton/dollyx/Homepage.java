@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +26,7 @@ import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.ViewFlipper;
 
@@ -37,18 +40,15 @@ public class Homepage extends AppCompatActivity
     private static final int SWIPE_THRESHOLD_VELOCITY = 200;
     private ViewFlipper mViewFlipper;
     private ToggleButton toggleButton;
+    private MediaPlayer mediaPlayer;
     private Animation.AnimationListener mAnimationListener;
     private Context mContext;
-    ArrayList<ImageItem> data;
+    ArrayList<Bitmap> data;
     ImageView play, stop;
     private static String PLAY_TAG = "play";
     private static String IMG_POSITION_TAG = "position";
     int play_status;
     int imagePosition;
-    static class ViewHolder {
-        TextView imageTitle;
-        ImageView image;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,7 @@ public class Homepage extends AppCompatActivity
         toggleButton = (ToggleButton)findViewById(R.id.toggle_btn);
         prevView = (ImageView)findViewById(R.id.swipe_left);
         nextView = (ImageView)findViewById(R.id.swipe_right);
+        mediaPlayer = MediaPlayer.create(this, R.raw.song1);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -82,16 +83,11 @@ public class Homepage extends AppCompatActivity
         mViewFlipper = (ViewFlipper) this.findViewById(R.id.main_image_flipper);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for(int index = 0; index<data.size(); index++) {
-            Log.d("ViewImageActivity", Integer.toString(index));
-            ViewHolder holder = new ViewHolder();
 
             View view = inflater.inflate(R.layout.image_view_layout, null);
-            holder.imageTitle = (TextView) view.findViewById(R.id.image_selected_title);
-            holder.image = (ImageView) view.findViewById(R.id.image_view_selected);
-            view.setTag(holder);
-            ImageItem item = data.get(index);
-            holder.imageTitle.setText(item.getTitle());
-            holder.image.setImageBitmap(item.getImage());
+            ImageView imageView = (ImageView) view.findViewById(R.id.image_view_selected);
+            view.setTag(imageView);
+            imageView.setImageBitmap(data.get(index));
             mViewFlipper.addView(view, index);
         }
         toggleButton.setOnClickListener(this);
@@ -115,22 +111,17 @@ public class Homepage extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            startActivity(new Intent(this, MainActivity.class));
+        if (id == R.id.nav_startpage) {
+
         } else if (id == R.id.nav_gallery) {
-
             startActivity(new Intent(Homepage.this, ImagesGridViewActivity.class));
-
-        } else if (id == R.id.nav_slideshow) {
-            Intent intent = new Intent(this, ViewImageActivity.class);
-            startActivity(intent);
+        } else if (id == R.id.nav_makewish) {
+            Toast.makeText(getApplicationContext(), R.string.birthday_msg, Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_manage) {
-            startActivity(new Intent(this, SettingsActivity.class));
+            //startActivity(new Intent(this, SettingsActivity.class));
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        }  else if (id == R.id.nav_quit) {
+            this.finish();
         } else if (id == R.id.nav_about){
             startActivity(new Intent(this, AboutActivity.class));
         }
@@ -145,30 +136,34 @@ public class Homepage extends AppCompatActivity
     public void onClick(View v) {
         int id = v.getId();
         if(id == R.id.toggle_btn) {
+            if(toggleButton.isChecked())
+                mediaPlayer.start();
+            else mediaPlayer.pause();
             slideShow(toggleButton.isChecked());
+
         }
         else if(id == R.id.swipe_left){
-
+            Snackbar.make(prevView, R.string.birthday_msg, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
         }
         else if(id == R.id.swipe_right){
-
+            Snackbar.make(prevView, R.string.birthday_msg, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
         }
         else if(id == R.id.fab){
             startActivity(new Intent(this, ViewImageActivity.class));
         }
 
     }
-    private ArrayList<ImageItem> getData() {
-        final ArrayList<ImageItem> imageItems = new ArrayList<>();
-        final ArrayList<ViewHolder> viewItems = new ArrayList<>();
+    private ArrayList<Bitmap> getData() {
+        final ArrayList<Bitmap> bitmaps = new ArrayList<>();
         TypedArray imgs = getResources().obtainTypedArray(R.array.frame_gif_ids);
         for (int i = 0; i < imgs.length(); i++) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
 
-            viewItems.add(new ViewHolder());
-            imageItems.add(new ImageItem(bitmap, "Image#" + i));
+            bitmaps.add(bitmap);
         }
-        return imageItems;
+        return bitmaps;
     }
     private void slideShow(boolean yes) {
         if (yes){
@@ -182,5 +177,19 @@ public class Homepage extends AppCompatActivity
             mViewFlipper.stopFlipping();
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(toggleButton.isChecked())
+            mediaPlayer.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(toggleButton.isChecked())
+            mediaPlayer.start();
     }
 }

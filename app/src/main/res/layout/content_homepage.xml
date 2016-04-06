@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.capton.dollyx.Homepage"
     tools:showIn="@layout/app_bar_homepage">
@@ -41,9 +39,10 @@
             android:id="@+id/mainpage_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/welcome_3"
+            android:src="@drawable/dollyson2"
             android:scaleType="centerInside"
             android:layout_below="@+id/toggle_btn"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -55,7 +54,8 @@
         android:src="@android:drawable/ic_media_previous"
         android:layout_above="@+id/mainpage_img"
         android:layout_toLeftOf="@+id/toggle_btn"
-        android:layout_toStartOf="@+id/toggle_btn" />
+        android:layout_toStartOf="@+id/toggle_btn"
+        android:layout_alignParentLeft="true"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -64,6 +64,7 @@
         android:src="@android:drawable/ic_media_next"
         android:layout_toEndOf="@+id/toggle_btn"
         android:layout_alignTop="@+id/swipe_left"
-        android:layout_toRightOf="@+id/toggle_btn" />
+        android:layout_toRightOf="@+id/toggle_btn"
+        android:layout_alignParentRight="true"/>
 
 </RelativeLayout>
