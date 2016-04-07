@@ -77,6 +77,16 @@
     </string-array>
     <string name="title_activity_view_image">ViewImageActivity</string>
     <string name="title_activity_homepage">Homepage</string>
+    <string name="copyright"><u>Copyright &#169;Captons, 2016\.</u></string>
+    <string name="app_subtitile">(Dorothy\'s Birthday App)</string>
+    <string name="about_content">
+        fjjglgjdjggkfdgfgjdgjdfl;jgldfjg
+        fgdfgdfgdgfgdfgfgfdgdfgfdgfdg
+        fgdfgfdgfgfdgdfgdfgfdgdfgg
+        ggdfgdfgfdgfdgfdgfdg
+        ldfjgdlgfgdfgdfgfgfgdfgdfggfgfdg
+        <br></br>...lol.
+    </string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
