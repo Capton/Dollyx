@@ -96,6 +96,14 @@ public class ViewImageActivity extends Activity implements OnClickListener {
                 return true;
             }
         });
+        mediaPlayer.start();
+        mediaPlayer.pause();
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mediaPlayer.start();
+            }
+        });
         play.setOnClickListener(this);
         stop.setOnClickListener(this);
         fab.setOnClickListener(this);
@@ -288,14 +296,14 @@ public class ViewImageActivity extends Activity implements OnClickListener {
     @Override
     protected void onPause() {
         super.onPause();
-        if(play.isShown())
+        if(stop.isShown())
             mediaPlayer.pause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(play.isShown())
+        if(stop.isShown())
             mediaPlayer.start();
     }
 }

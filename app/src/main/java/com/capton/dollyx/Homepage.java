@@ -90,6 +90,14 @@ public class Homepage extends AppCompatActivity
             imageView.setImageBitmap(data.get(index));
             mViewFlipper.addView(view, index);
         }
+        mediaPlayer.start();
+        mediaPlayer.pause();
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mediaPlayer.start();
+            }
+        });
         toggleButton.setOnClickListener(this);
         prevView.setOnClickListener(this);
         nextView.setOnClickListener(this);
